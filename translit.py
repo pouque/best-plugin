@@ -136,7 +136,7 @@ class UprlsMode(PluginMode):
 
 class HuettaMode(PluginMode):
     def get_random_word(self):
-        words = [u'блядь', u'сука', u'нахуй', u'пидор', u'чмо', u'хер',\
+        words = [u'блядь', u'сука', u'нахуй', u'пидор', u'чмо', u'хер', \
                  u'дебил', u'придурок', u'хуесос', u'гомогей', \
                  u'блядина', u'хуита', u'даун', u'рукожоп', \
                  u'геегомик', u'гомогомик', u'говноед', \
