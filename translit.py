@@ -136,10 +136,10 @@ class UprlsMode(PluginMode):
 
 class HuettaMode(PluginMode):
     def get_random_word(self):
-        words = [u'блядь', u'сука', u'нахуй', u'пидор', u'чмо', u'хер', \
-                 u'дебил', u'придурок', u'хуесос', u'гомогей', \
-                 u'блядина', u'хуита', u'даун', u'рукожоп', \
-                 u'геегомик', u'гомогомик', u'говноед', \
+        words = [u'блядь', u'сука', u'нахуй', u'пидор', u'чмо', u'хер',
+                 u'дебил', u'придурок', u'хуесос', u'гомогей',
+                 u'блядина', u'хуита', u'даун', u'рукожоп',
+                 u'геегомик', u'гомогомик', u'говноед',
                  u'мудак', u'кретин', u'еблан', u'шизик']
         word = words[random.randint(0, len(words) - 1)]
         if probality_choice(self.word_insert_probality): return word
