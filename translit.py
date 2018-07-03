@@ -102,11 +102,11 @@ class TranslitMode(PluginMode):
         u'Я' : u'Ja', u'я' : u'ja'
     }
 
-    def convert_char(self, ch):
+    def convert_char(self, ch): # {TranslitMode} -> char -> string
         if ch in self.convert_table: return self.convert_table[ch]
         else: return ch
     
-    def to_translit(self, string):
+    def to_translit(self, string): # {TranslitMode} -> string -> string
         converted = list(map(self.convert_char, string))
         new_word = []
         for (fst, snd) in zip_self(converted):
@@ -117,7 +117,7 @@ class TranslitMode(PluginMode):
         PluginMode.__init__(self, name, lambda s: self.to_translit(s))
 
 class UprlsMode(PluginMode):
-    def to_uprls(self, string):
+    def to_uprls(self, string): # {UprlsMode} -> string -> string
         nullable = [u'а', u'о', u'у', u'е', u'и', u'ы', u'я', u'ё', u'ю',
                     u'А', u'О', u'У', u'Е', u'И', u'Ы', u'Я', u'Ё', u'Ю']
         def handle_word(word):
@@ -135,7 +135,7 @@ class UprlsMode(PluginMode):
         PluginMode.__init__(self, name, lambda s: self.to_uprls(s))
 
 class HuettaMode(PluginMode):
-    def get_random_word(self):
+    def get_random_word(self): # {HuettaMode} -> () -> string
         words = [u'блядь', u'сука', u'нахуй', u'пидор', u'чмо', u'хер',
                  u'дебил', u'придурок', u'хуесос', u'гомогей',
                  u'блядина', u'хуита', u'даун', u'рукожоп',
@@ -145,7 +145,7 @@ class HuettaMode(PluginMode):
         if probality_choice(self.word_insert_probality): return word
         else: return word.upper()
 
-    def to_huetta_pure(self, string):
+    def to_huetta_pure(self, string): # {HuettaMode} -> string -> string
         string = string.split(u" ")
         new_string = single(head(string))
         for i in range(1, len(string)):
@@ -158,7 +158,7 @@ class HuettaMode(PluginMode):
                 new_string.insert(i, string[i])
         return " ".join(new_string)
 
-    def to_huetta(self, args):
+    def to_huetta(self, args): # {HuettaMode} -> string -> string
         if probality_choice(self.attack_probality) and (not args.startswith("/")):
             return self.to_huetta_pure(args)
         else: return args
@@ -233,7 +233,7 @@ def random_toggle(date, buffer, args):
 
 weechat.hook_command("random_toggle", "random toggle", "", "", "", "random_toggle", "")
 
-PluginState.modes = [PluginMode("normal", idfun), \
-                     TranslitMode("translit"), \
-                     UprlsMode("uprls"), \
+PluginState.modes = [PluginMode("normal", idfun),
+                     TranslitMode("translit"),
+                     UprlsMode("uprls"),
                      HuettaMode("huetta", 0.3, 0.3)]
