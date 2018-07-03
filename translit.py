@@ -130,7 +130,7 @@ class TranslitMode(PluginMode):
         return "".join(new_word)
 
     def __init__(self, name):
-        PluginMode.__init__(self, name, lambda s: self.to_translit(s))
+        PluginMode.__init__(self, name, self.to_translit)
 
 
 class UprlsMode(PluginMode):
