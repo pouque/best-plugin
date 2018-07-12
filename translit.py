@@ -151,7 +151,7 @@ class UprlsMode(PluginMode):
         return " ".join(new_string)
 
     def __init__(self, name):
-        PluginMode.__init__(self, name, lambda s: self.to_uprls(s))
+        PluginMode.__init__(self, name, self.to_uprls)
 
 
 class HuettaMode(PluginMode):
@@ -191,7 +191,18 @@ class HuettaMode(PluginMode):
     def __init__(self, name, attack_probality, word_insert_probality):
         self.attack_probality = attack_probality
         self.word_insert_probality = word_insert_probality
-        PluginMode.__init__(self, name, lambda s: self.to_huetta(s))
+        PluginMode.__init__(self, name, self.to_huetta)
+
+
+class WideMode(PluginMode):
+    def to_wide(self, args): # {WideMode} -> string -> string
+        if not args.startswith("/"):
+            return " ".join(args)
+        else:
+            return args
+
+    def __init__(self, name):
+        PluginMode.__init__(self, name, self.to_wide)
 
 
 # Commands registration
@@ -272,4 +283,5 @@ weechat.hook_command("random_toggle", "random toggle",
 PluginState.modes = [PluginMode("normal", idfun),
                      TranslitMode("translit"),
                      UprlsMode("uprls"),
-                     HuettaMode("huetta", 0.3, 0.3)]
+                     HuettaMode("huetta", 0.3, 0.3),
+                     WideMode("wide")]
