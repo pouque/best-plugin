@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+from sys import version_info
 import weechat
 import random
 
-weechat.register("translit", "1kasper", "14.88", "HUJ-NA",
+weechat.register("translit", "siegment", "14.88", "",
                  "Delaet translit is tvoego teksta, bro", "", "")
 
 
@@ -76,8 +77,11 @@ class PluginMode:
         self.name = name
         self.function = function
 
-    def convert(self, args):  # bytes -> bytes
-        return self.function(args.decode("utf-8")).encode("utf-8")
+    def convert(self, args):
+        if version_info >= (3, 0):
+            return self.function(args)
+        else:
+            return self.function(args.decode("utf-8")).encode("utf-8")
 
 class TranslitMode(PluginMode):
     convert_table = {
